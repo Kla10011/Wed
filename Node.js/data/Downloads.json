@@ -1,0 +1,22 @@
+{
+"Downloads": [
+    {
+        "id": 0,
+        "Name": "cv",
+        "Type": "pdf",
+        "Page": 2
+    },
+    {
+        "id": 1,
+        "Name": "resume",
+        "Type": "pdf",
+        "Page": 1
+    },
+    {
+        "id": 2,
+        "Name": "graduation certificate",
+        "Type": "pdf",
+        "Page": 1
+    }
+]
+}

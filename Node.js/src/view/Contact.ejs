@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+<body class="is-boxed has-animations">
+    <section>
+        <div>
+            <h1>Hello Ronnakon M.</h1>
+            <ul>
+                <%
+                Downloads.map((Download)=>{ %>
+                        <h2>
+                            <a href="/Contact/<%=Download.id%>"><%=Download.Name%></a>
+                        </h2>
+                        <h4>Type: <%=Download.Type%></h4>
+                        <h4>Page: <%=Download.Page%></h4>
+                    <%
+                })
+                %>
+            </ul>
+        </div>
+    </section>
+</body>
+</html>

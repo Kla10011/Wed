@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+<body>
+    <h1>Hello Ronnakon M.</h1>
+    <ul>
+        <%
+        Downloads.map((Download)=>{ %>
+                <h2>
+                    <a href="/Download/<%=Download.id%>"><%=Download.Name%></a>
+                </h2>
+                <h4>Type: <%=Download.Type%></h4>
+                <h4>Page: <%=Download.Page%></h4>
+            <%
+        })
+        %>
+    </ul>
+</body>
+</html>

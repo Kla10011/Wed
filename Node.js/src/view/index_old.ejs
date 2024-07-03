@@ -1,0 +1,15 @@
+<head>
+
+</head>
+<body>
+    <H1>Hello <%=username%> !!</H1>
+    <ul>
+        <%
+        customers.map((i)=>{ %>
+                <li><%=i%></li>
+            <%
+        })
+        %>
+    </ul>
+
+</body>
