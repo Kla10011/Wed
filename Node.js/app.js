@@ -7,14 +7,14 @@ import { fileURLToPath } from 'url';
 // const express = require('express');
 // const chalk = require('chalk');
 const app = express();
-const port = 3000;
+const port = process.env.port || 4000;
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(morgan("combined"));
 app.use(express.static(path.join(currentDir,"/public/")))
 
 app.get("/",(req,res) =>{
-    res.send('hello ronnakon mekvimanloi');
+    res.send('Hi ronnakon mekvimanloi');
 })
 
 app.listen(port,()=>{
