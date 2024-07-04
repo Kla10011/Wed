@@ -11,6 +11,7 @@ import DownloadRouter from './src/router/DownloadRouter.js';
 const app = express();
 const port = process.env.port || 4000;
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
+const url = "mongodb+srv://admin:0000@cluster0.agcmx4a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 app.use(morgan("combined"));
 app.use(express.static(path.join(currentDir,"/public/")));
