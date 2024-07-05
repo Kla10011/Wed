@@ -5,6 +5,7 @@
   "exports": "./index.js",
   "type": "module",
   "scripts": {
+    "startv2": "set debug=app & nodemon appv2.js",
     "start": "set debug=app & nodemon app.js",
     "debug": "set debug=* & nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
