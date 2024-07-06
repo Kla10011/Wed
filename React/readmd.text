@@ -1,0 +1,10 @@
+npx create-next-app projectname || npx create-react-app projectname
+
+//MUi
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material
+
+//React routers
+npm install react-router-dom
+
+npm start => oper browser
