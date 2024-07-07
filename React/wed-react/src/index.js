@@ -5,8 +5,9 @@ import { createBrowserRouter,RouterProvider,} from 'react-router-dom';
 import './index.css';
 import App from './App';
 import ErrorPage from './error-page';
-import UserCreate from './routes/UserCreate';
+import UserCreate from './UserCreate';
 import Navbar from './Navbar';
+import UserUpdate from './UserUpdate';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
   {
     path: "create",
     element: <div><Navbar /><UserCreate /></div>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "update/:id",
+    element: <div><Navbar /><UserUpdate /></div>,
     errorElement: <ErrorPage />,
   },
 ]);

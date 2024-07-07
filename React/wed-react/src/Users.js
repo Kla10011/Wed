@@ -43,6 +43,10 @@ export default function SimpleContainer() {
           )
     }
 
+    const UserUpdate = id => {
+        window.location = '/update/'+ id
+    }
+
     const UserDelete = id => {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -115,7 +119,7 @@ export default function SimpleContainer() {
                             <TableCell align="right">{row.username}</TableCell>
                             <TableCell align="right">
                                 <ButtonGroup variant="outlined" aria-label="Basic button group">
-                                    <Button>EDIT</Button>
+                                    <Button onClick={() => UserUpdate(row.id)}>EDIT</Button>
                                     <Button onClick={() => UserDelete(row.id)}>DEL</Button>
                                 </ButtonGroup>
                             </TableCell>
