@@ -1,0 +1,5 @@
+npx create-next-app@latest
+npm run dev
+
+//src
+https://nextjs.org/docs/getting-started/installation
