@@ -6,6 +6,6 @@ export async function POST(req) {
     const {work,status,name,timestart,timend,datetimerecord,datetimelatest} = await req.json()
     console.log(work,status,name,timestart,timend,datetimerecord,datetimelatest)
     await connectMongonDB();
-    await Post.create({work,status,name})
+    await Post.create({work,status,name,timestart,timend})
     return NextResponse.json({message: "Post created"}, {status:201})
 }
