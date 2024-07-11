@@ -10,6 +10,7 @@ function CreatePostPage() {
     const [title, setTitle] = useState("")
     const [img,setImg] = useState("")
     const [content,setContent] = useState("")
+    const [gg,setGG] = useState("")
 
     const router = useRouter();
 
@@ -27,7 +28,7 @@ function CreatePostPage() {
           header:{
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({title, img, content})
+          body: JSON.stringify({title, img, content,gg})
         })
         if (res.ok) {
           router.push('/');
@@ -46,6 +47,7 @@ function CreatePostPage() {
         <hr className='my-3' />
         <Link href='/' className='bg-gray-500 inline-block text-white border py-2 px-3 rounded my-2'>go back</Link>
         <form onSubmit={handleSubmit}>
+            <input onChange={(e) => setGG(e.target.value)} type ="text" className='w-[300px] block bg-gray-200 border py-2 px-3 rounded text-lg my-2' placeholder='gg'/>
             <input onChange={(e) => setTitle(e.target.value)} type ="text" className='w-[300px] block bg-gray-200 border py-2 px-3 rounded text-lg my-2' placeholder='Post title'/>
             <input onChange={(e) => setImg(e.target.value)} type ="text" className='w-[300px] block bg-gray-200 border py-2 px-3 rounded text-lg my-2' placeholder='Post img Url'/>
             <textarea onChange={(e) => setContent(e.target.value)} name='' id='' cols="30" rows='10' className='w-[300px] block bg-gray-200 border py-2 px-3 rounded text-lg my-2' placeholder='Enter your content'></textarea>

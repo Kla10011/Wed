@@ -9,50 +9,65 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { useRouter } from 'next/navigation';
+import dayjs from 'dayjs';
 
 function Page() {
-    const [formData, setFormData] = useState({
-        work: '',
-        status: '',
-        name: '',
-        timestart: '',
-        timend: '',
-        dtrecord: '',
-        dtlatest: ''
-    });
+    const [work, setWork] = useState("");
+    const [status, setStatus] = useState("");
+    const [name, setName] = useState("");
+    const [timestart, setTimestart] = useState(dayjs());
+    const [timend, setTimend] = useState(dayjs());
+    const [datetimerecord, setDatetimerecord] = useState(dayjs());
+    const [datetimelatest, setDatetimelatest] = useState(dayjs());
+
+    const router = useRouter();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!work || !status || !name) {
+            alert('Please fill in all required fields');
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    work,
+                    status,
+                    name,
+                    timestart: timestart.toISOString(),
+                    timend: timend.toISOString(),
+                    datetimerecord: datetimerecord.toISOString(),
+                    datetimelatest: datetimelatest.toISOString(),
+                }),
+            });
+            if (res.ok) {
+                router.push('/');
+            } else {
+                throw new Error('Failed to create a post');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const workOptions = [
         { label: 'Development' },
         { label: 'Test' },
         { label: 'Document' },
     ];
+
     const statusOptions = [
         { label: 'ดำเนินการ' },
         { label: 'เสร็จสิ้น' },
         { label: 'ยกเลิก' },
     ];
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleAutocompleteChange = (name, value) => {
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const response = await fetch('D:/Exam-emwork/daily-work/src/app/pages/api/save-data.js', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-        const result = await response.json();
-        console.log(result);
-    };
 
     return (
         <React.Fragment>
@@ -66,26 +81,24 @@ function Page() {
                                 <Autocomplete
                                     disablePortal
                                     options={workOptions}
-                                    onChange={(event, value) => handleAutocompleteChange('work', value ? value.label : '')}
+                                    onChange={(event, value) => setWork(value ? value.label : '')}
                                     renderInput={(params) => <TextField {...params} label="ประเภทงาน" />}
                                 />
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField
-                                    id="name"
-                                    name="name"
                                     label="ชื่องานที่ดำเนินการ"
                                     variant="outlined"
+                                    onChange={(e) => setName(e.target.value)}
                                     fullWidth
                                     required
-                                    onChange={handleChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <Autocomplete
                                     disablePortal
                                     options={statusOptions}
-                                    onChange={(event, value) => handleAutocompleteChange('status', value ? value.label : '')}
+                                    onChange={(event, value) => setStatus(value ? value.label : '')}
                                     renderInput={(params) => <TextField {...params} label="สถานะ" />}
                                 />
                             </Grid>
@@ -95,29 +108,33 @@ function Page() {
                                         <Grid item xs={6}>
                                             <Typography variant="body2" gutterBottom>เวลาที่เริ่มดำเนินการ</Typography>
                                             <TimePicker
-                                                onChange={(newValue) => handleAutocompleteChange('timestart', newValue)}
-                                                renderInput={(params) => <TextField {...params} />}
+                                                value={timestart}
+                                                onChange={(newValue) => setTimestart(newValue)}
+                                                slotProps={{ textField: { fullWidth: true } }}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography variant="body2" gutterBottom>เวลาที่เสร็จสิ้น</Typography>
                                             <TimePicker
-                                                onChange={(newValue) => handleAutocompleteChange('timend', newValue)}
-                                                renderInput={(params) => <TextField {...params} />}
+                                                value={timend}
+                                                onChange={(newValue) => setTimend(newValue)}
+                                                slotProps={{ textField: { fullWidth: true } }}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography variant="body2" gutterBottom>วันเวลาที่บันทึกข้อมูล</Typography>
                                             <DateTimePicker
-                                                onChange={(newValue) => handleAutocompleteChange('dtrecord', newValue)}
-                                                renderInput={(params) => <TextField {...params} />}
+                                                value={datetimerecord}
+                                                onChange={(newValue) => setDatetimerecord(newValue)}
+                                                slotProps={{ textField: { fullWidth: true } }}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography variant="body2" gutterBottom>วันเวลาที่ปรับปรุงข้อมูลล่าสุด</Typography>
                                             <DateTimePicker
-                                                onChange={(newValue) => handleAutocompleteChange('dtlatest', newValue)}
-                                                renderInput={(params) => <TextField {...params} />}
+                                                value={datetimelatest}
+                                                onChange={(newValue) => setDatetimelatest(newValue)}
+                                                slotProps={{ textField: { fullWidth: true } }}
                                             />
                                         </Grid>
                                     </Grid>
