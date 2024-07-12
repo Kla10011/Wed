@@ -8,6 +8,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DateTimePicker } from '@mui/x-date-pickers';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 
@@ -104,7 +105,7 @@ function Page() {
                                     <Grid container spacing={2}>
                                         <Grid item xs={6}>
                                             <Typography variant="body2" gutterBottom>เวลาที่เริ่มดำเนินการ</Typography>
-                                            <TimePicker
+                                            <DateTimePicker
                                                 value={timestart}
                                                 onChange={(newValue) => setTimestart(newValue)}
                                                 slotProps={{ textField: { fullWidth: true } }}
@@ -112,7 +113,7 @@ function Page() {
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography variant="body2" gutterBottom>เวลาที่เสร็จสิ้น</Typography>
-                                            <TimePicker
+                                            <DateTimePicker
                                                 value={timend}
                                                 onChange={(newValue) => setTimend(newValue)}
                                                 slotProps={{ textField: { fullWidth: true } }}

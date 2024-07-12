@@ -54,13 +54,25 @@ export default function Home() {
               (postData.map(val=>(
                 <Paper sx= {{p:2}}>
                   <div key={val._id}>
-                      <li>{val.work}</li>
-                      <li>{val.name}</li>
-                      <li>{val.status}</li>
-                      <li>{new Date(val.timestart).toLocaleString('en-US')}</li>
-                      <li>{new Date(val.timend).toLocaleString('en-US')}</li>
-                      <li>{new Date(val.createdAt).toLocaleString('en-US')}</li>
-                      <li>{new Date(val.updatedAt).toLocaleString('en-US')}</li>
+                      <p>ประเภทงาน : {val.work}</p>
+                      <p>ชื่องานที่ดำเนินการ : {val.name}</p>
+                      <p>สถานะ : {val.status}</p>
+                      <div className='py-2'>
+                        <p>เวลาที่เริ่มดำเนินการ : </p>
+                        <p>{new Date(val.timestart).toLocaleString('en-US')}</p>
+                      </div>
+                      <div className='py-2'>
+                      <p>เวลาที่เสร็จสิ้น</p>
+                      <p>{new Date(val.timend).toLocaleString('en-US')}</p>
+                      </div>
+                      <div className='py-2'>
+                      <p>วันเวลาที่บันทึกข้อมูล</p>
+                      <p>{new Date(val.createdAt).toLocaleString('en-US')}</p>
+                      </div>
+                      <div className='py-2'>
+                      <p>วันเวลาที่ปรับปรุงข้อมูลล่าสุด</p>
+                      <p>{new Date(val.updatedAt).toLocaleString('en-US')}</p>
+                      </div>
                       <div className="my-5">
                         <Link href = {`/edit/${val._id}`}>
                           <Button className='border py-1 px-1' variant="contained" color='success'>EDIT</Button>

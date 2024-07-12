@@ -137,7 +137,7 @@ function EditPostPage({ params }) {
                                     <Grid container spacing={2}>
                                         <Grid item xs={6}>
                                             <Typography variant="body2" gutterBottom>เวลาที่เริ่มดำเนินการ</Typography>
-                                            <TimePicker
+                                            <DateTimePicker
                                                 value={timestart}
                                                 onChange={(newValue) => setTimestart(newValue)}
                                                 slotProps={{ textField: { fullWidth: true } }}
@@ -145,7 +145,7 @@ function EditPostPage({ params }) {
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography variant="body2" gutterBottom>เวลาที่เสร็จสิ้น</Typography>
-                                            <TimePicker
+                                            <DateTimePicker
                                                 value={timend}
                                                 onChange={(newValue) => setTimend(newValue)}
                                                 slotProps={{ textField: { fullWidth: true } }}
