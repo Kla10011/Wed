@@ -21,7 +21,6 @@ export async function GET() {
 export async function DELETE(req){
     const id = req.nextUrl.searchParams.get("id")
     await connectMongonDB()
-    await connectMongonDB()
     await Post.findByIdAndDelete(id)
     return NextResponse.json({messaage : "Post deleted"}, {status:200})
 }
