@@ -8,6 +8,7 @@ import Link from "next/link";
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import DeleteBtn from './Delete';
+import { Grid, TextField } from '@mui/material';
 
 export default function Home() {
   const [postData, setPostData] = useState([])
@@ -35,6 +36,11 @@ export default function Home() {
     getPosts()
   },[])
 
+  if (!postData) {
+    return <div className='px-2 py-2'>Loading...</div>;
+  }
+
+
   return (
     <main >
       <Container maxWidth="xl" sx = {{p:2}}>
@@ -43,6 +49,11 @@ export default function Home() {
               <Box sx={{flexGrow:1}}>
                   <Typography variant="h6" gutterBottom>User</Typography>
               </Box>
+              <Link href="search">
+                  <Button variant="contained" className='mx-2'>
+                      SEARCH
+                  </Button>
+              </Link>
               <Link href="create">
                   <Button variant="contained">
                       CREATE
@@ -62,16 +73,16 @@ export default function Home() {
                         <p>{new Date(val.timestart).toLocaleString('en-US')}</p>
                       </div>
                       <div className='py-2'>
-                      <p>เวลาที่เสร็จสิ้น</p>
-                      <p>{new Date(val.timend).toLocaleString('en-US')}</p>
+                        <p>เวลาที่เสร็จสิ้น</p>
+                        <p>{new Date(val.timend).toLocaleString('en-US')}</p>
                       </div>
                       <div className='py-2'>
-                      <p>วันเวลาที่บันทึกข้อมูล</p>
-                      <p>{new Date(val.createdAt).toLocaleString('en-US')}</p>
+                        <p>วันเวลาที่บันทึกข้อมูล</p>
+                        <p>{new Date(val.createdAt).toLocaleString('en-US')}</p>
                       </div>
                       <div className='py-2'>
-                      <p>วันเวลาที่ปรับปรุงข้อมูลล่าสุด</p>
-                      <p>{new Date(val.updatedAt).toLocaleString('en-US')}</p>
+                        <p>วันเวลาที่ปรับปรุงข้อมูลล่าสุด</p>
+                        <p>{new Date(val.updatedAt).toLocaleString('en-US')}</p>
                       </div>
                       <div className="my-5">
                         <Link href = {`/edit/${val._id}`}>

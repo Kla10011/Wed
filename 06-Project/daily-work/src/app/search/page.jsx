@@ -2,17 +2,15 @@
 import React, { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Button, Grid , Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import Autocomplete from '@mui/material/Autocomplete';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DateTimePicker } from '@mui/x-date-pickers';
+import { DatePicker } from '@mui/x-date-pickers';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 
-function CreatePost() {
+function SearchPost() {
     const [work, setWork] = useState("");
     const [status, setStatus] = useState("");
     const [name, setName] = useState("");
@@ -53,67 +51,28 @@ function CreatePost() {
         }
     };
 
-    const workOptions = [
-        { label: 'Development' },
-        { label: 'Test' },
-        { label: 'Document' },
-    ];
-
-    const statusOptions = [
-        { label: 'ดำเนินการ' },
-        { label: 'เสร็จสิ้น' },
-        { label: 'ยกเลิก' },
-    ];
-
     return (
         <React.Fragment>
             <CssBaseline />
             <Container maxWidth="sm" sx={{ p: 2 }}>
                 <Paper sx={{ p: 2 }}>
-                    <Typography variant="h6" gutterBottom>บันทึกผลการปฎิบัติงานประจำวัน</Typography>
+                    <Typography variant="h6" gutterBottom>ค้นหาบันทึกการปฎิบัติงานประจำวันตามช่วงเวลา</Typography>
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>
-                                <Autocomplete
-                                    disablePortal
-                                    options={workOptions}
-                                    isOptionEqualToValue={(option, value) => option.label === value.label}
-                                    onChange={(event, value) => setWork(value ? value.label : '')}
-                                    renderInput={(params) => <TextField {...params} label="ประเภทงาน" />}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <TextField
-                                    label="ชื่องานที่ดำเนินการ"
-                                    variant="outlined"
-                                    onChange={(e) => setName(e.target.value)}
-                                    fullWidth
-                                    required
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Autocomplete
-                                    disablePortal
-                                    options={statusOptions}
-                                    isOptionEqualToValue={(option, value) => option.label === value.label}
-                                    onChange={(event, value) => setStatus(value ? value.label : '')}
-                                    renderInput={(params) => <TextField {...params} label="สถานะ" />}
-                                />
-                            </Grid>
                             <Grid item xs={12}>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={6}>
-                                            <Typography variant="body2" gutterBottom>เวลาที่เริ่มดำเนินการ</Typography>
-                                            <DateTimePicker
+                                            <Typography variant="body2" gutterBottom>วันที่ต้องการเริ่มค้นหา</Typography>
+                                            <DatePicker
                                                 value={timestart}
                                                 onChange={(newValue) => setTimestart(newValue)}
                                                 slotProps={{ textField: { fullWidth: true } }}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <Typography variant="body2" gutterBottom>เวลาที่เสร็จสิ้น</Typography>
-                                            <DateTimePicker
+                                            <Typography variant="body2" gutterBottom>วันที่สิ้นสุดการค้นหา</Typography>
+                                            <DatePicker
                                                 value={timend}
                                                 onChange={(newValue) => setTimend(newValue)}
                                                 slotProps={{ textField: { fullWidth: true } }}
@@ -123,7 +82,7 @@ function CreatePost() {
                                 </LocalizationProvider>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <Button type="submit" variant="contained">Create</Button>
+                                <Button type="submit" variant="contained">SEARCH</Button>
                             </Grid>
                         </Grid>
                     </form>
@@ -133,4 +92,4 @@ function CreatePost() {
     );
 }
 
-export default CreatePost;
+export default SearchPost;
