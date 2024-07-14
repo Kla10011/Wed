@@ -12,7 +12,7 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 
-function CreatePost() {
+function Page() {
     const [work, setWork] = useState("");
     const [status, setStatus] = useState("");
     const [name, setName] = useState("");
@@ -133,4 +133,4 @@ function CreatePost() {
     );
 }
 
-export default CreatePost;
+export default Page;

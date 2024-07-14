@@ -45,7 +45,7 @@ export default function Home() {
               <img src={val.img} width={300} height={0} alt={val.title} />
               <p>{val.content}</p>
               <div className="my-5">
-                <Link className = 'bg-gray-500 text-white border py-2 px-2 rounded-md text-lg mx-2' href = {`/edit/${val._id}`}>Edit</Link>
+                <Link className = 'bg-gray-500 text-white border py-2 px-2 rounded-md text-lg ' href = {`/edit/${val._id}`}>Edit</Link>
                 <DeleteBtn id={val._id} />
               </div>
             </div>
