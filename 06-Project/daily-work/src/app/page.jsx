@@ -11,9 +11,8 @@ import DeleteBtn from './Delete';
 import { Grid, TextField } from '@mui/material';
 
 export default function Home() {
-  const [postData, setPostData] = useState([])
-  console.log(postData)
-
+  const [postData, setPostData] = useState(null)
+  
   const getPosts = async() => {
     try{
       const res = await fetch('./api/posts',{
@@ -29,12 +28,11 @@ export default function Home() {
       console.log("Error loading posts: ",error)
     }
   }
-
   
-
   useEffect(() => {
     getPosts()
   },[])
+  
 
   if (!postData) {
     return <div className='px-2 py-2'>Loading...</div>;
