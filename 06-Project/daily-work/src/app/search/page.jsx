@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState ,useRef} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { Button, Grid , Typography } from '@mui/material';
@@ -10,6 +10,11 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import DeleteBtn from '../Delete';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import Box from '@mui/material/Box';
 
 
 function SearchPost() {
@@ -37,38 +42,134 @@ function SearchPost() {
 
     };
 
+    const [value, setValue] = useState('Daily');
+    const formRef = useRef(null);
+
+
+    const handleChange = async (event) => {
+        await setValue(event.target.value);
+        formRef.current.requestSubmit();
+      };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (value === 'Daily') {
+            setTimend(timestart)
+        } else {
+            ;
+        }
+      };
+
+    const statusCount = postData.reduce((acc, post) => {
+        const { status } = post;
+        if (acc[status]) {
+            acc[status]++;
+        } else {
+            acc[status] = 1;
+        }
+        return acc;
+    }, {});
+
     return (
         <React.Fragment>
             <CssBaseline />
             <Container maxWidth="xl" sx={{ p: 2 }}>
                 <Paper sx={{ p: 2 }}>
-                    <Typography variant="h6" gutterBottom>ค้นหาบันทึกการปฎิบัติงานประจำวันตามช่วงเวลา</Typography>
+                    <Box display={'flex'}>
+                        <Box sx={{flexGrow:1}}>
+                        <Typography variant="h6" gutterBottom>ค้นหาบันทึกการปฎิบัติงานประจำวันตามช่วงเวลา</Typography>
+                        </Box>
+                        <form ref={formRef} onSubmit={handleSubmit}>
+                            <RadioGroup 
+                            value={value} 
+                            onChange={handleChange} 
+                            row 
+                            defaultValue="Daily"
+                            >
+                                <FormControlLabel
+                                    value="Daily"
+                                    control={<Radio />}
+                                    label="ค้นหารายวัน"
+                                />
+                                <FormControlLabel
+                                    value="Monthly"
+                                    control={<Radio />}
+                                    label="ค้นหาตามช่วงวันเวลา"
+                                />
+                            </RadioGroup>
+                        </form>
+                    </Box>
                     <form onSubmit={handleSearch}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={6}>
-                                            <Typography variant="body2" gutterBottom>วันที่ต้องการเริ่มค้นหา</Typography>
-                                            <DatePicker
-                                                value={timestart}
-                                                onChange={(newValue) => setTimestart(newValue)}
-                                                slotProps={{ textField: { fullWidth: true } }}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Typography variant="body2" gutterBottom>วันที่สิ้นสุดการค้นหา</Typography>
-                                            <DatePicker
-                                                value={timend}
-                                                onChange={(newValue) => setTimend(newValue)}
-                                                slotProps={{ textField: { fullWidth: true } }}
-                                            />
-                                        </Grid>
+                            {value === "Daily" ?
+                                (
+                                    <Grid item xs={12}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={6}>
+                                                    <Typography variant="body2" gutterBottom>วันที่ต้องการเริ่มค้นหา</Typography>
+                                                    <DatePicker
+                                                        value={timestart}
+                                                        onChange={(newValue) => {
+                                                            setTimestart(newValue);
+                                                            setTimend(newValue);
+                                                            }}
+                                                        slotProps={{ textField: { fullWidth: true } }}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </LocalizationProvider>
                                     </Grid>
-                                </LocalizationProvider>
-                            </Grid>
+                                ): (
+                                    <Grid item xs={12}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={6}>
+                                                    <Typography variant="body2" gutterBottom>วันที่ต้องการเริ่มค้นหา</Typography>
+                                                    <DatePicker
+                                                        value={timestart}
+                                                        onChange={(newValue) => setTimestart(newValue)}
+                                                        slotProps={{ textField: { fullWidth: true } }}
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Typography variant="body2" gutterBottom>วันที่สิ้นสุดการค้นหา</Typography>
+                                                    <DatePicker
+                                                        value={timend}
+                                                        onChange={(newValue) => setTimend(newValue)}
+                                                        slotProps={{ textField: { fullWidth: true } }}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </LocalizationProvider>
+                                    </Grid>
+                            )}
                             <Grid item xs={12} sm={6}>
                                 <Button type="submit" variant="contained">SEARCH</Button>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Grid container >
+                                    <Grid item xs={3} >
+                                        <center>
+                                        ดำเนินการ : {statusCount["ดำเนินการ"]}
+                                        </center>
+                                    </Grid>
+                                    <Grid item xs={3} >
+                                        <center>
+                                        ยกเลิก : {statusCount["ยกเลิก"]}
+                                        </center>
+                                    </Grid>
+                                    <Grid item xs={3} >
+                                        <center>
+                                        เสร็จสิ้น : {statusCount["เสร็จสิ้น"]}
+                                        </center>
+                                    </Grid>
+                                    <Grid item xs={3} >
+                                        <center>
+                                        ทั้งหมด : {statusCount["ดำเนินการ"]}
+                                        </center>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </form>
