@@ -28,7 +28,11 @@ docker run --rm -p 8080:8080 docker-test
 docker ps -a
 
 ///// stop container id
+<<<<<<< HEAD
 docker stop [container id]
 
 ///// leard command docker
 docker --help
+=======
+docker stop [container id]
+>>>>>>> dd5aa661f72e941317bd27cf92708388f914d885
