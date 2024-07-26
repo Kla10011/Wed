@@ -12,7 +12,7 @@ docker rm [ID]//remove container
 ///// build after create DB and DF
 docker build -t mysql-docker:0.1 .
 
-///// run mysql-docker
+///// run mysql-docker from image
 docker run --name mysql-server -d -p 3306:3306 mysql-docker
 docker run --name mysql-phpadmin -d --link mysql-server:db -p 8081:80 phpmyadmin/phpmyadmin
 
