@@ -11,4 +11,5 @@ ENV MYSQL_PASSWORD=0000
 COPY database.sql /docker-entrypoint-initdb.d/
 
 # Expose the MySQL port
+CMD [ "--default-authentication-plugin=mysql_native_password" ]
 EXPOSE 3306
