@@ -21,8 +21,11 @@ CMD [ "npx","serve", "dist" ]
 /////check db
 docker-compose exec api sh
 ping db
+<<<<<<< HEAD
 
 ******* give up error api-1. can't read db-1
 api-1  | CORS-enabled web server listening on port 5000
 api-1  | Host =  host.docker.internal
 api-1  | Error connecting to the database: Error: Connection lost: The server closed the connection. 
+=======
+>>>>>>> d7960f0d4dc60f924541940e9fee98212e3376f9
