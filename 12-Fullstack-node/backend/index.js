@@ -15,9 +15,11 @@ const connection = mysql.createConnection({
 // Check the connection
 connection.connect((err) => {
   if (err) {
+    console.log('Host = ',process.env.DB_HOST)
     console.error('Error connecting to the database:', err.stack);
     return;
   }
+  console.log('Host = ',process.env.DB_HOST)
   console.log('Connected to the database as id ' + connection.threadId);
 });
 
