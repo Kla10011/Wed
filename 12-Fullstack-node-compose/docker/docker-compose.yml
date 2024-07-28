@@ -1,0 +1,43 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: '0000'
+      MYSQL_DATABASE: mails
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: '0000'
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - mynetwork
+
+  api:
+    build: ./backend/
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=host.docker.internal
+      - DB_USER=root
+      - DB_PASSWORD=0000
+      - DB_DATABASE=mails
+    networks:
+      - mynetwork
+
+  web:
+    build: ./frontend/
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API=http://localhost:5000
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

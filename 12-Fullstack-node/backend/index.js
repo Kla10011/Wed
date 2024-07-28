@@ -1,4 +1,5 @@
 require('dotenv').config()
+const dns = require('dns');
 var express = require('express')
 var cors = require('cors')
 const mysql = require('mysql2')
@@ -9,18 +10,24 @@ const connection = mysql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  port: process.env.DB_PORT,
 });
 
 // Check the connection
 connection.connect((err) => {
   if (err) {
-    console.log('Host = ',process.env.DB_HOST)
     console.error('Error connecting to the database:', err.stack);
     return;
   }
-  console.log('Host = ',process.env.DB_HOST)
   console.log('Connected to the database as id ' + connection.threadId);
+  const host = connection.config.host;
+  console.log('Host = ', host);
+  dns.lookup(host, (err, address) => {
+    if (err) {
+      console.error('Error resolving IP address:', err.stack);
+      return;
+    }
+    console.log('IP address of host = ', address);
+  });
 });
 
   
