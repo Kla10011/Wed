@@ -17,3 +17,7 @@ RUN  npm ci
 COPY . .
 RUN  npm run build
 CMD [ "npx","serve", "dist" ]
+
+/////check db
+docker-compose exec api sh
+ping db
